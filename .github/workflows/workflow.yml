@@ -1,0 +1,16 @@
+name: Webhook example
+on: repository_dispatch
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: On Custom Webhook
+      if: github.event.action == 'my_webhook'
+      run: |
+        ls
+        echo "Recieved my_webhook"|
+        echo "github event clientpayload mykey"
+        echo "${{ toJSON(github.event.client_payload.mykey)}}"
+        echo "github"
+        echo "${{ toJSON(github.event)}}"
